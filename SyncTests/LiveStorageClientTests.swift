@@ -5,6 +5,7 @@
 import Foundation
 import FxA
 import Shared
+import Account
 import XCTest
 
 class LiveStorageClientTests : LiveAccountTest {
