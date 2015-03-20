@@ -26,7 +26,7 @@ public enum FirefoxAccountActionNeeded {
 public class FirefoxAccountState {
     let version = 1
 
-    let label: FirefoxAccountStateLabel
+    public let label: FirefoxAccountStateLabel
     let verified: Bool
 
     init(label: FirefoxAccountStateLabel, verified: Bool) {
@@ -104,9 +104,9 @@ public class FirefoxAccountState {
     }
 
     public class TokenAndKeys: FirefoxAccountState {
-        let sessionToken: NSData
-        let kA: NSData
-        let kB: NSData
+        public let sessionToken: NSData
+        public let kA: NSData
+        public let kB: NSData
 
         init(label: FirefoxAccountStateLabel, sessionToken: NSData, kA: NSData, kB: NSData) {
             self.sessionToken = sessionToken
@@ -199,7 +199,7 @@ public class FirefoxAccountState {
             return newState
         }
 
-        func generateAssertionForAudience(audience: String) -> String {
+        public func generateAssertionForAudience(audience: String) -> String {
             let assertion = JSONWebTokenUtils.createAssertionWithPrivateKeyToSignWith(keyPair.privateKey,
                 certificate: certificate, audience: audience)
             return assertion

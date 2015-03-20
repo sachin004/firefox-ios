@@ -4,14 +4,15 @@
 
 import Foundation
 import FxA
+import Shared
 
-class TwoKeys {
+public class TwoKeys {
     let KeyLength = 32
 
     let kA: NSData
     let wrapkB: NSData
 
-    init?(kA: NSData, wrapkB: NSData) {
+    public init?(kA: NSData, wrapkB: NSData) {
         self.kA = kA
         self.wrapkB = wrapkB
         // Swift is bonkers: it's not legal to return nil before assigning the members.
@@ -38,7 +39,7 @@ class TwoKeys {
     }
 }
 
-struct CertificateAndExpiration {
+public struct CertificateAndExpiration {
     let certificate: String
     let expiresAt: Int64
 
@@ -48,9 +49,9 @@ struct CertificateAndExpiration {
     }
 }
 
-struct KeyPairResult {
-    let keyPair: KeyPair
-    let expiresAt: Int64
+public struct KeyPairResult {
+    public let keyPair: KeyPair
+    public let expiresAt: Int64
 
     init(keyPair: KeyPair, expiresAt: Int64) {
         self.keyPair = keyPair
@@ -58,25 +59,25 @@ struct KeyPairResult {
     }
 }
 
-protocol FxALoginClient {
+public protocol FxALoginClient {
     func fetchSyncKeysWithKeyFetchToken(keyFetchToken: NSData, callback: (NSError?, TwoKeys!) -> Void) -> Void
     func generateKeyPairAt(now: Int64, callback: (NSError?, KeyPairResult!) -> Void) -> Void
     func signPublicKey(publicKey: PublicKey, withSessionToken: NSData, at now: Int64, callback: (NSError?, CertificateAndExpiration!) -> Void) -> Void
 }
 
-class FxALoginClient10: FxALoginClient {
+public class FxALoginClient10: FxALoginClient {
     let client: FxAClient10
 
-    init(client: FxAClient10) {
+    public init(client: FxAClient10) {
         self.client = client
     }
 
-    func generateKeyPairAt(now: Int64, callback: (NSError?, KeyPairResult!) -> Void) -> Void {
+    public func generateKeyPairAt(now: Int64, callback: (NSError?, KeyPairResult!) -> Void) -> Void {
         let result = KeyPairResult(keyPair: RSAKeyPair.generateKeyPairWithModulusSize(1024), expiresAt: now + OneMonthInMilliseconds)
         callback(nil, result)
     }
 
-    func fetchSyncKeysWithKeyFetchToken(keyFetchToken: NSData, callback: (NSError?, TwoKeys!) -> Void) -> Void {
+    public func fetchSyncKeysWithKeyFetchToken(keyFetchToken: NSData, callback: (NSError?, TwoKeys!) -> Void) -> Void {
         client.keys(keyFetchToken).upon { keysResult in
             if let keysResponse = keysResult.successValue {
                 callback(nil, TwoKeys(kA: keysResponse.kA, wrapkB: keysResponse.wrapkB)!)
@@ -86,7 +87,7 @@ class FxALoginClient10: FxALoginClient {
         }
     }
 
-    func signPublicKey(publicKey: PublicKey, withSessionToken sessionToken: NSData, at now: Int64, callback: (NSError?, CertificateAndExpiration!) -> Void) -> Void {
+    public func signPublicKey(publicKey: PublicKey, withSessionToken sessionToken: NSData, at now: Int64, callback: (NSError?, CertificateAndExpiration!) -> Void) -> Void {
         client.sign(sessionToken, publicKey: publicKey).upon { signResult in
             if let signResponse = signResult.successValue {
                 callback(nil, CertificateAndExpiration(certificate: signResponse.certificate, expiresAt: now + OneDayInMilliseconds))
@@ -122,14 +123,14 @@ class MockFxAClient10: FxALoginClient {
     }
 }
 
-class FxALoginStateMachine {
+public class FxALoginStateMachine {
     let client: FxALoginClient
 
-    init(client: FxALoginClient) {
+    public init(client: FxALoginClient) {
         self.client = client
     }
 
-    func advanceFromState(state: FirefoxAccountState, now: Int64, callback: (NSError?, FirefoxAccountState!) -> Void) {
+    public func advanceFromState(state: FirefoxAccountState, now: Int64, callback: (NSError?, FirefoxAccountState!) -> Void) {
         // keys are used as a set.
         var stateLabelsSeen = [FirefoxAccountStateLabel: Bool]()
 
