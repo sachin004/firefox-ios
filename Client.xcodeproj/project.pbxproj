@@ -50,6 +50,8 @@
 		282DA4731A68C1E700A406E2 /* OpenSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FA77831A43B2CE0010CD32 /* OpenSearch.swift */; };
 		282DA4811A697EB100A406E2 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34DC8521A16C40C00D49B7B /* RestAPI.swift */; };
 		285D37E31ABCA69E000E1CF9 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C077971A3B064000834FE5 /* CryptoTests.swift */; };
+		2863A12E1ABCD388001C2CF7 /* LiveAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA4363B1ABB8448008031D1 /* LiveAccountTest.swift */; };
+		2863A14A1ABCE137001C2CF7 /* FxALoginStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2863A1491ABCE137001C2CF7 /* FxALoginStateMachineTests.swift */; };
 		288A2D9D1AB8B3260023ABC3 /* Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288A2D861AB8B3260023ABC3 /* Shared.framework */; };
 		288A2D9E1AB8B3260023ABC3 /* Shared.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 288A2D861AB8B3260023ABC3 /* Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		288A2DAA1AB8B3700023ABC3 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288A2DA71AB8B3700023ABC3 /* Box.swift */; };
@@ -867,6 +869,9 @@
 		282731701ABC9BE700AA1954 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		282731A11ABC9D2600AA1954 /* Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prefs.swift; sourceTree = "<group>"; };
 		283306E81AB3BB87008999AC /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		283307891AB3C1F8008999AC /* StorageClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageClientTests.swift; path = SyncTests/StorageClientTests.swift; sourceTree = "<group>"; };
+		2844FBE71ABCD316007BA744 /* FirefoxAccountConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirefoxAccountConfiguration.swift; sourceTree = "<group>"; };
+		2863A1491ABCE137001C2CF7 /* FxALoginStateMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FxALoginStateMachineTests.swift; path = ../FxATests/FxALoginStateMachineTests.swift; sourceTree = "<group>"; };
 		28786E541AB0F5FA009EA9EF /* DeferredTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeferredTests.swift; path = SyncTests/DeferredTests.swift; sourceTree = "<group>"; };
 		288A2D861AB8B3260023ABC3 /* Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		288A2DA71AB8B3700023ABC3 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Box.swift; path = ThirdParty/Box/Box.swift; sourceTree = "<group>"; };
@@ -1421,6 +1426,7 @@
 		2FA4360B1ABB83B4008031D1 /* AccountTests */ = {
 			isa = PBXGroup;
 			children = (
+				2863A1491ABCE137001C2CF7 /* FxALoginStateMachineTests.swift */,
 				2FA436371ABB8448008031D1 /* FirefoxAccountTests.swift */,
 				2FA436381ABB8448008031D1 /* FxAClient10Tests.swift */,
 				2FA4363A1ABB8448008031D1 /* HawkHelperTests.swift */,
@@ -2777,6 +2783,7 @@
 				2FA436411ABB8448008031D1 /* LiveAccountTest.swift in Sources */,
 				2FA436361ABB8436008031D1 /* TokenServerClient.swift in Sources */,
 				2FA436341ABB8436008031D1 /* HawkHelper.swift in Sources */,
+				2863A14A1ABCE137001C2CF7 /* FxALoginStateMachineTests.swift in Sources */,
 				2FA436301ABB8436008031D1 /* FxAClient10.swift in Sources */,
 				2FA4363D1ABB8448008031D1 /* FirefoxAccountTests.swift in Sources */,
 				2FA436401ABB8448008031D1 /* HawkHelperTests.swift in Sources */,
