@@ -9,8 +9,8 @@ import Shared
 public class TwoKeys {
     let KeyLength = 32
 
-    let kA: NSData
-    let wrapkB: NSData
+    public let kA: NSData
+    public let wrapkB: NSData
 
     public init?(kA: NSData, wrapkB: NSData) {
         self.kA = kA
@@ -98,12 +98,15 @@ public class FxALoginClient10: FxALoginClient {
     }
 }
 
-class MockFxAClient10: FxALoginClient {
+public class MockFxAClient10: FxALoginClient {
     // Fixed per mock client, for testing.
-    let kA = NSData.randomOfLength(32)!
-    let wrapkB = NSData.randomOfLength(32)!
+    public let kA = NSData.randomOfLength(32)!
+    public let wrapkB = NSData.randomOfLength(32)!
 
-    func fetchSyncKeysWithKeyFetchToken(keyFetchToken: NSData, callback: (NSError?, TwoKeys!) -> Void) -> Void {
+    public init() {
+    }
+
+    public func fetchSyncKeysWithKeyFetchToken(keyFetchToken: NSData, callback: (NSError?, TwoKeys!) -> Void) -> Void {
         if let twoKeys = TwoKeys(kA: kA, wrapkB: wrapkB) {
             callback(nil, twoKeys)
         } else {
@@ -111,12 +114,12 @@ class MockFxAClient10: FxALoginClient {
         }
     }
 
-    func generateKeyPairAt(now: Int64, callback: (NSError?, KeyPairResult!) -> Void) -> Void {
+    public func generateKeyPairAt(now: Int64, callback: (NSError?, KeyPairResult!) -> Void) -> Void {
         let result = KeyPairResult(keyPair: RSAKeyPair.generateKeyPairWithModulusSize(512), expiresAt: now + OneMonthInMilliseconds)
         callback(nil, result)
     }
 
-    func signPublicKey(publicKey: PublicKey, withSessionToken: NSData, at now: Int64, callback: (NSError?, CertificateAndExpiration!) -> Void) -> Void {
+    public func signPublicKey(publicKey: PublicKey, withSessionToken: NSData, at now: Int64, callback: (NSError?, CertificateAndExpiration!) -> Void) -> Void {
         // For testing purposes, generate a bogus certificate.
         let result = CertificateAndExpiration(certificate: "Certificate generated at \(now)", expiresAt: now + OneWeekInMilliseconds)
         callback(nil, result)
