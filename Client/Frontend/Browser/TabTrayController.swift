@@ -25,6 +25,7 @@ private class CustomCell: UITableViewCell {
     let title: UIView
     let innerStroke: InnerStrokedView
     let favicon: UIImageView
+    let closeTab: UIButton
 
     // Changes depending on whether we're full-screen or not.
     var margin = TabTrayControllerUX.Margin
@@ -65,11 +66,18 @@ private class CustomCell: UITableViewCell {
         self.innerStroke = InnerStrokedView(frame: self.backgroundHolder.frame)
         self.innerStroke.layer.backgroundColor = UIColor.clearColor().CGColor
 
+        self.closeTab = UIButton()
+
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.closeTab.setImage(UIImage(named: "toolbar_stop.png"), forState: UIControlState.Normal)
+        self.closeTab.backgroundColor = UIColor.clearColor()
+
         backgroundHolder.addSubview(self.background)
         addSubview(backgroundHolder)
         backgroundHolder.addSubview(self.title)
         backgroundHolder.addSubview(innerStroke)
+        backgroundHolder.addSubview(self.closeTab)
 
         backgroundColor = UIColor.clearColor()
 
@@ -151,7 +159,8 @@ private class CustomCell: UITableViewCell {
             height: title.frame.height)
 
         innerStroke.frame = background.frame
-
+        
+        closeTab.frame = CGRect(x: title.frame.width - margin, y: 2, width: 12, height: 12)
         verticalCenter(titleText)
     }
 }
@@ -251,10 +260,18 @@ class TabTrayController: UIViewController, UITabBarDelegate, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as CustomCell
         cell.titleText.text = tab.title
         cell.background.image = tab.screenshot(size: CGSize(width: tableView.frame.width, height: TabTrayControllerUX.CellHeight))
+        cell.closeTab.addTarget(self, action: "closeCurrTab:", forControlEvents: UIControlEvents.TouchDown)
         return cell
     }
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let tab = tabManager.getTab(indexPath.item)
+        tabManager.removeTab(tab)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
+    
+    func closeCurrTab(sender: UIButton) {
+        let indexPath:NSIndexPath = NSIndexPath(forRow: sender.tag, inSection: 0)
         let tab = tabManager.getTab(indexPath.item)
         tabManager.removeTab(tab)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
