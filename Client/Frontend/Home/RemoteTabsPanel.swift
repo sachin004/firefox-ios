@@ -4,24 +4,12 @@
 
 import UIKit
 import Account
-import Shared
-import SnapKit
-import Storage
-import Sync
-import XCGLogger
 
-// TODO: same comment as for SyncAuthState.swift!
-private let log = XCGLogger.defaultInstance()
-
-
-private struct RemoteTabsPanelUX {
+public struct RemoteTabsPanelUX {
     static let HeaderHeight: CGFloat = SiteTableViewControllerUX.RowHeight // Not HeaderHeight!
     static let RowHeight: CGFloat = SiteTableViewControllerUX.RowHeight
     static let HeaderBackgroundColor = UIColor(rgb: 0xf8f8f8)
 }
-
-private let RemoteClientIdentifier = "RemoteClient"
-private let RemoteTabIdentifier = "RemoteTab"
 
 /**
  * Display a tree hierarchy of remote clients and tabs, like:
@@ -42,9 +30,10 @@ class RemoteTabsPanel: UIViewController, HomePanel {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var clients = ClientsViewController()
-        var syncedTabs = SyncedTabsViewController()
-        splitView.viewControllers = [clients, syncedTabs]
+        
+        splitView.clients = ClientsViewController()
+        splitView.clients.profile = profile
+        splitView.syncedTabs = SyncedTabsViewController()
         view.addSubview(splitView.view)
     }
 }

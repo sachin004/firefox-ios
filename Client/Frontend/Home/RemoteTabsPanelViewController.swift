@@ -10,11 +10,11 @@ import UIKit
 
 class RemoteTabsPanelViewController: UISplitViewController {
     
-    var clients = ClientsViewController()
-    var syncedTabs = SyncedTabsViewController()
+    var clients: ClientsViewController!
+    var syncedTabs: SyncedTabsViewController!
     override func viewDidLoad() {
-        
-        self.splitViewController?.viewControllers = [clients, syncedTabs]
+        clients.tabsViewController = syncedTabs
+        self.viewControllers = [clients, syncedTabs]
         super.viewDidLoad()
     }
     

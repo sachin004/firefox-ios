@@ -8,11 +8,21 @@
 
 import UIKit
 
+private let RemoteTabIdentifier = "RemoteTab"
+
 class SyncedTabsViewController: UITableViewController {
     
     var selectedIndex = -1
-    let CellIdentifier = "CellIdentifier"
-    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.registerClass(TwoLineHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: RemoteTabIdentifier)
+        
+        tableView.rowHeight = RemoteTabsPanelUX.RowHeight
+        tableView.separatorInset = UIEdgeInsetsZero
+        
+        view.backgroundColor = AppConstants.PanelBackgroundColor
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -24,16 +34,14 @@ class SyncedTabsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->
         UITableViewCell {
-            self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
-            let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+            self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: RemoteTabIdentifier)
+            let cell = tableView.dequeueReusableCellWithIdentifier(RemoteTabIdentifier, forIndexPath: indexPath) as! UITableViewCell
             cell.textLabel!.text = "Cell item \(indexPath.row)"
             return cell
     }
-    
-    //MARK: UITableViewDelegate
-    
+
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return RemoteTabsPanelUX.HeaderHeight
     }
 
 }
