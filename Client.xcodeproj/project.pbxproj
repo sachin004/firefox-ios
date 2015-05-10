@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034A72DC1AFE6FEC001E303D /* RemoteTabsPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A72DB1AFE6FEC001E303D /* RemoteTabsPanelViewController.swift */; };
+		034E08D71AFB2C0600748A5E /* ClientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034E08D61AFB2C0600748A5E /* ClientsViewController.swift */; };
+		034E08F41AFB2C2000748A5E /* SyncedTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034E08F31AFB2C2000748A5E /* SyncedTabsViewController.swift */; };
 		0AE491A61A41C88C0046C724 /* BackForwardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491A51A41C88C0046C724 /* BackForwardListViewController.swift */; };
 		0B1C05D71A798B1F004C78B0 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C05D61A798B1F004C78B0 /* UIImageViewAligned.m */; };
 		0B5142CC1AE1BAF50014D0B3 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5142CB1AE1BAF50014D0B3 /* UIViewExtensions.swift */; };
@@ -1035,6 +1038,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		034A72DB1AFE6FEC001E303D /* RemoteTabsPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteTabsPanelViewController.swift; sourceTree = "<group>"; };
+		034E08D61AFB2C0600748A5E /* ClientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientsViewController.swift; sourceTree = "<group>"; };
+		034E08F31AFB2C2000748A5E /* SyncedTabsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncedTabsViewController.swift; sourceTree = "<group>"; };
 		0AE491A51A41C88C0046C724 /* BackForwardListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackForwardListViewController.swift; sourceTree = "<group>"; };
 		0B1C05D51A798B1F004C78B0 /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
 		0B1C05D61A798B1F004C78B0 /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
@@ -2416,6 +2422,9 @@
 				0BF648101A9C54E900BA963C /* TopSitesPanel.swift */,
 				59A685F4EAD19EDEC854BCA4 /* ReaderPanel.swift */,
 				2FDE87FD1ABB3817005317B1 /* RemoteTabsPanel.swift */,
+				034E08D61AFB2C0600748A5E /* ClientsViewController.swift */,
+				034E08F31AFB2C2000748A5E /* SyncedTabsViewController.swift */,
+				034A72DB1AFE6FEC001E303D /* RemoteTabsPanelViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3668,11 +3677,13 @@
 				0AE491A61A41C88C0046C724 /* BackForwardListViewController.swift in Sources */,
 				0BF648111A9C54E900BA963C /* TopSitesPanel.swift in Sources */,
 				0B1C05D71A798B1F004C78B0 /* UIImageViewAligned.m in Sources */,
+				034A72DC1AFE6FEC001E303D /* RemoteTabsPanelViewController.swift in Sources */,
 				0BB5B30B1AC0AD1F0052877D /* PasswordHelper.swift in Sources */,
 				0BD19A651A2530840084FBA7 /* Locking.swift in Sources */,
 				E4B423BE1AB9FE6A007E66C8 /* ReaderModeCache.swift in Sources */,
 				282DA4731A68C1E700A406E2 /* OpenSearch.swift in Sources */,
 				0BEFED8C1AC21C1E002E0A0C /* SDWebThumbnails.swift in Sources */,
+				034E08F41AFB2C2000748A5E /* SyncedTabsViewController.swift in Sources */,
 				2F44FCC71A9E8CF500FD20CC /* SearchSettingsTableViewController.swift in Sources */,
 				0BF42D371A7C0B8E00889E28 /* FaviconManager.swift in Sources */,
 				D38B2D341A8D96D00040E6B5 /* GCDWebServerFunctions.m in Sources */,
@@ -3694,6 +3705,7 @@
 				E47616C71AB74CA600E7DD25 /* ReaderModeBarView.swift in Sources */,
 				2F44FCC51A9E85E900FD20CC /* SettingsTableViewController.swift in Sources */,
 				2F44FCCB1A9E972E00FD20CC /* SearchEnginePicker.swift in Sources */,
+				034E08D71AFB2C0600748A5E /* ClientsViewController.swift in Sources */,
 				0BF0DBC01A8598D50039F300 /* TransitionManager.swift in Sources */,
 				2F834D1A1A80629A006A0B7B /* FxAContentViewController.swift in Sources */,
 				D34DC8531A16C40C00D49B7B /* Profile.swift in Sources */,
