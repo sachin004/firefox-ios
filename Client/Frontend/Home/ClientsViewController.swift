@@ -10,24 +10,6 @@ import UIKit
 
 class ClientsViewController: UITableViewController {
     let CellIdentifier = "CellIdentifier"
-    let DetailSegueIdentifier = "DetailSegueIdentifier"
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == DetailSegueIdentifier {
-            var dest: SyncedTabsViewController
-            if let nav = segue.destinationViewController as? UINavigationController {
-                dest = nav.topViewController as! SyncedTabsViewController
-            } else {
-                dest = segue.destinationViewController as! SyncedTabsViewController
-            }
-            
-            if let path = tableView.indexPathForSelectedRow() {
-                dest.selectedIndex = path.row
-            }
-        }
-    }
-    
-    //MARK: UITableViewDataSource
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

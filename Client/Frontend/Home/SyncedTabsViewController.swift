@@ -8,23 +8,32 @@
 
 import UIKit
 
-class SyncedTabsViewController: UIViewController {
+class SyncedTabsViewController: UITableViewController {
     
     var selectedIndex = -1
+    let CellIdentifier = "CellIdentifier"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        var selectionText: String
-        if selectedIndex >= 0 {
-            selectionText = "Selected item \(selectedIndex)"
-        } else {
-            selectionText = "Nothing selected!"
-        }
-        
-        if splitViewController?.respondsToSelector("displayModeButtonItem") == true {
-            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
-            navigationItem.leftItemsSupplementBackButton = true
-        }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
+    
+    override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
+        return 100
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->
+        UITableViewCell {
+            self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+            let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel!.text = "Cell item \(indexPath.row)"
+            return cell
+    }
+    
+    //MARK: UITableViewDelegate
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
+    }
+
 }
