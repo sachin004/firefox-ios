@@ -44,11 +44,10 @@ class RemoteTabsPanel: UIViewController, HomePanel {
         self.remoteTabsTableView?.homePanelDelegate = homePanelDelegate
         self.remoteTabsTableView?.profile = profile
 
-        println(UIDevice.currentDevice().model)
-        if UIDevice.currentDevice().orientation.isLandscape {
+        if UIDevice.currentDevice().orientation.isLandscape && UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
             view.addSubview(remoteTabsSplitView!.view)
         }
-        else if UIDevice.currentDevice().orientation.isPortrait {
+        else {
             view.addSubview(remoteTabsTableView!.view)
         }
         
@@ -56,16 +55,17 @@ class RemoteTabsPanel: UIViewController, HomePanel {
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
 
-        if toInterfaceOrientation.isPortrait {
-            remoteTabsSplitView!.view.hidden = true
-            remoteTabsTableView!.view.hidden = false
-            view.addSubview(remoteTabsTableView!.view)
-        }
-        else if toInterfaceOrientation.isLandscape {
+        if toInterfaceOrientation.isLandscape && UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad{
             remoteTabsSplitView!.view.hidden = false
             remoteTabsTableView!.view.hidden = true
             remoteTabsSplitView!.refreshView()
             view.addSubview(remoteTabsSplitView!.view)
+        }
+
+        if toInterfaceOrientation.isPortrait {
+            remoteTabsSplitView!.view.hidden = true
+            remoteTabsTableView!.view.hidden = false
+            view.addSubview(remoteTabsTableView!.view)
         }
     }
 }

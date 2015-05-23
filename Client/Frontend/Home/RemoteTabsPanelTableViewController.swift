@@ -31,6 +31,7 @@ private let RemoteTabIdentifier = "RemoteTab"
 class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
     weak var homePanelDelegate: HomePanelDelegate? = nil
     var profile: Profile!
+    var isSectionExpanded: [Bool]!
     
     private var clientAndTabs: [ClientAndTabs]?
     
@@ -44,7 +45,6 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
         tableView.registerClass(TwoLineTableViewCell.self, forCellReuseIdentifier: RemoteTabIdentifier)
         tableView.rowHeight = RemoteTabsPanelUX.RowHeight
         tableView.separatorInset = UIEdgeInsetsZero
-        
         view.backgroundColor = AppConstants.PanelBackgroundColor
         
         refreshControl = UIRefreshControl()
@@ -79,6 +79,8 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
                     // Hide dividing lines.
                     tableView.separatorStyle = UITableViewCellSeparatorStyle.None
                 }
+                self.isSectionExpanded = [Bool](count: (self.clientAndTabs?.count ?? 0), repeatedValue: false)
+
                 tableView.reloadData()
             } else {
                 log.error("Failed to fetch tabs.")
@@ -95,10 +97,21 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        log.debug("Section \(section) has \(self.clientAndTabs?[section].tabs.count) tabs.")
-        return self.clientAndTabs?[section].tabs.count ?? 0
+        if self.isSectionExpanded[section] {
+            log.debug("Section \(section) has \(self.clientAndTabs?[section].tabs.count) tabs.")
+            return self.clientAndTabs?[section].tabs.count ?? 0
+        }
+        return 0
     }
-    
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.isSectionExpanded[indexPath.section] {
+            return RemoteTabsPanelUX.HeaderHeight
+        }
+        
+        return 0;
+    }
+
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return RemoteTabsPanelUX.HeaderHeight
     }
@@ -137,7 +150,11 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
                 image?.accessibilityLabel = NSLocalizedString("mobile device", comment: "Accessibility label for Mobile Device image in remote tabs list")
             }
             view.imageView.image = image
+            view.userInteractionEnabled = true
             view.mergeAccessibilityLabels()
+            view.tag = section
+            let headerTapped = UITapGestureRecognizer (target: self, action: "sectionHeaderTapped:")
+            view.addGestureRecognizer(headerTapped)
             return view
         }
         
@@ -146,9 +163,12 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(RemoteTabIdentifier, forIndexPath: indexPath) as! TwoLineTableViewCell
-        let tab = tabAtIndexPath(indexPath)
-        cell.setLines(tab?.title, detailText: tab?.URL.absoluteString)
-        // TODO: Bug 1144765 - Populate image with cached favicons.
+        if self.isSectionExpanded[indexPath.section] {
+            let tab = tabAtIndexPath(indexPath)
+            cell.setLines(tab?.title, detailText: tab?.URL.absoluteString)
+            // TODO: Bug 1144765 - Populate image with cached favicons.
+        }
+        
         return cell
     }
     
@@ -159,4 +179,21 @@ class RemoteTabsPanelTableViewController: UITableViewController, HomePanel {
             homePanelDelegate?.homePanel(self, didSelectURL: tab.URL)
         }
     }
+
+    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
+        var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
+        if (indexPath.row == 0) {
+            
+            var collapsed = self.isSectionExpanded[indexPath.section]
+            collapsed = !collapsed
+            
+            self.isSectionExpanded[indexPath.section] = collapsed
+            //reload specific section animated
+            var range = NSMakeRange(indexPath.section, 1)
+            var sectionToReload = NSIndexSet(indexesInRange: range)
+            self.tableView.reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
+        }
+        
+    }
+    
 }
